@@ -19,6 +19,7 @@ window.onload = function () {
 
 
 function handleResize() {
+    console.log("handle resize called")
     let windowWidth = window.innerWidth;
     let myImage = document.getElementById("myImage");
     let img = myImage.querySelector("img");
@@ -61,8 +62,7 @@ async function sendEmail(event) {
     if (name == "" || email == "" || message == "") return alert("Por favor, complete todos los campos");
 
     let url = `https://email-sender-9qlw.onrender.com/contact?name=${name}&from=${email}&to=${to}&subject=Nuevo mensaje de contacto&message=${message}`;
-    url = `http://localhost:8080/contact?name=${name}&from=${email}&to=${to}&subject=Nuevo mensaje de contacto&message=${message}`
-    // url = "https://email-sender-9qlw.onrender.com/contact?name=Nombre&from=Contacto&to=elshadowmatax@gmail.com&subject=asunto&message=mensaje";
+    // url = `http://localhost:8080/contact?name=${name}&from=${email}&to=${to}&subject=Nuevo mensaje de contacto&message=${message}`
     let response = await fetch(url);
 
     if (response.status == 200) {
@@ -77,37 +77,10 @@ async function sendEmail(event) {
 document.addEventListener('DOMContentLoaded', function () {
     var navbarCollapse = document.querySelector('.navbar-collapse');
 
-
-    // let button = document.querySelector(".navbar-toggler");
-    // if(button.classList.contains("collapsed")){
-    //     myImage.style.top = "px";
-    // }
-    // console.log('Height changed:', entry.contentRect.height);
-    // requestAnimationFrame(() => {
-    //     myImage.style.top = entry.contentRect.height + "px";
-    // });
-    // console.log("top", myImage.style.top)
-
-
     navbarCollapse.addEventListener('hidden.bs.collapse', function () {
-        console.log('Navbar is collapsed');
-        console.log("height", navbarCollapse.offsetHeight)
-        requestAnimationFrame(() => {
-            
-        });
-        myImage.style.top = navbarCollapse.offsetHeight + "px";
-            console.log("top", myImage.style.top)
-            var _ = myImage.offsetHeight;
+        handleResize();
     });
-
     navbarCollapse.addEventListener('shown.bs.collapse', function () {
-        console.log('Navbar is expanded');
-        console.log("height", navbarCollapse.offsetHeight)
-        requestAnimationFrame(() => {
-            myImage.style.top = "1000px";
-        });
-        myImage.style.top = navbarCollapse.offsetHeight + "px";
-            console.log("top", myImage.style.top)
-            var _ = myImage.offsetHeight;
+        handleResize();
     });
 });
